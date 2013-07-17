@@ -22,10 +22,10 @@ I assume no liablity for anyone using this that breaks their system.
 ## Installation
 First, place this script somewhere on your $PATH.
 
-Now open your Bash configuration file (~/.bashrc on Linux, ~/.profile on OS X)
+Now open your Bash configuration file (`~/.bashrc` on Linux, `~/.profile` on OS X)
 and add the following (note the first dot character):
 
-`alias cdb='. bookmark.sh'
+`alias cdb='. bookmark.sh'`
 
 You can replace `cdb` with another name if you prefer.
 
