@@ -6,27 +6,52 @@ addflag=false
 delflag=false
 
 function print_help {
-    echo "usage: cdb [-c] bookmark_name"
+    echo "usage: cdb [-c | -d] bookmark_name"
 }
 
+# ------------------------------------------------------------------------------
+# Add a new bookmark.
 function add {
     eval name="\$$1"
     if [[ ! -z "$name" ]]; then
-        echo "That bookmark already exists. I don't handle that yet"
-        return
+        read -p "Overwriting bookmark. Are you sure? [y|n]: " confirm
+        case $confirm in
+            y|Y )
+                contents=$(grep -v "^$1=" < $conf)       
+                echo $contents > $conf
+                unset $1
+                add $1
+                ;;
+            * )
+                echo "Bookmarks unchanged."
+                return
+                ;;
+        esac
     else
         echo "$1=\"$PWD\"" >> $conf
         echo "Added $PWD as $1"
     fi
 }
 
+# ------------------------------------------------------------------------------
+# Delete an existing bookmark
 function del {
     eval name="\$$1"
-    if [[ ! -z "$name" ]]; then        
-        contents=$(grep -v "^$1=" < $conf)       
-        echo $contents > $conf
-        unset $1
-        return
+    if [[ ! -z "$name" ]]; then
+        read -p "Deleting bookmark. Are you sure? [y|n]: " confirm
+        case $confirm in
+            y|Y )
+                contents=$(grep -v "^$1=" < $conf)       
+                echo $contents > $conf
+                unset $1
+                echo "$1 removed."
+                return
+                ;;
+            * )
+                echo "Bookmarks unchanged."
+                return
+                ;;  
+        esac        
     else
         echo "Can't delete a bookmark that doesn't exist."
     fi    
@@ -57,7 +82,7 @@ fi
 
 # parse flags
 OPTIND=1
-while getopts ":cd" opt; do
+while getopts ":c:d:" opt; do
     case $opt in
         c)
             addflag=true
