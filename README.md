@@ -10,14 +10,8 @@ it will cause the directory change to happen in a subshell instead of your
 current one.  See the installation instructions below for tips.
 
 ## Warning
-
-This is unpolished software.  It is still missing many key features, such as
-~~handling directories with spaces in them~~ and deleting/overwriting bookmarks.
-
-Further, it offers no protection against malicious code inserted in the script
-or in the configuration file.
-
-I assume no liablity for anyone using this that breaks their system.
+This is unpolished software.  You are likely to encounter bugs.  Reports and
+patches are appreciated.
 
 ## Installation
 First, place this script somewhere on your $PATH.
