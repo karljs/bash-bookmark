@@ -57,6 +57,8 @@ function del {
     fi    
 }
 
+# ------------------------------------------------------------------------------
+# Lookup an existing bookmark and change to that directory
 function lookup {
     eval name="\$$1"
     if [[ ! -z "$name" ]]; then
