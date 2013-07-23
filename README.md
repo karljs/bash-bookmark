@@ -11,8 +11,8 @@ current one.  See the installation instructions below for tips.
 
 ## Warning
 
-This is very unpolished software.  It is still missing many key features, such
-as handling directories with spaces in them and deleting/overwriting bookmarks.
+This is unpolished software.  It is still missing many key features, such as
+~~handling directories with spaces in them~~ and deleting/overwriting bookmarks.
 
 Further, it offers no protection against malicious code inserted in the script
 or in the configuration file.
@@ -22,8 +22,8 @@ I assume no liablity for anyone using this that breaks their system.
 ## Installation
 First, place this script somewhere on your $PATH.
 
-Now open your Bash configuration file (`~/.bashrc` on Linux, `~/.profile` on OS X)
-and add the following (note the first dot character):
+Now open your Bash configuration file (`~/.bashrc` on Linux, `~/.profile` on OS
+X) and add the following (note the first dot character):
 
 `alias cdb='. bookmark.sh'`
 
@@ -34,8 +34,8 @@ Once you have your alias set up, you can add new bookmarks as follows:
 
 `cdb -c name` 
 
-This will add your current working directory to the database of bookmarks
-using the provided name.
+This will add your current working directory to the database of bookmarks using
+the provided name.
 
 After adding a bookmark, you can change to that directory as follows:
 
