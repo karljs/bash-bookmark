@@ -8,6 +8,7 @@ function print_help {
 }
 
 function add {
+    echo eval name="\$$1"
     eval name="\$$1"
     if [[ ! -z "$name" ]]; then
         echo "That bookmark already exists. I don't handle that yet"
@@ -21,7 +22,7 @@ function add {
 function lookup {
     eval name="\$$1"
     if [[ ! -z "$name" ]]; then
-        cd \"$name\"
+        cd "$name"
     else
         echo "That bookmark doesn't exist"
         return
@@ -35,6 +36,7 @@ if [[ $# -lt 1 || $# -gt 2 ]]; then
 fi
 
 # parse flags
+OPTIND=1
 while getopts ":c" opt; do
     case $opt in
         c)
