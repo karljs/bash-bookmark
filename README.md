@@ -29,9 +29,14 @@ Once you have your alias set up, you can add new bookmarks as follows:
 `cdb -c name` 
 
 This will add your current working directory to the database of bookmarks using
-the provided name.
+the provided name.  It can be used to overwrite existing bookmarks, too.
 
 After adding a bookmark, you can change to that directory as follows:
 
 `cdb name`
+
+Finally, you can remove a bookmark with the `-d` flag:
+
+`cdb -d name`
+
 
