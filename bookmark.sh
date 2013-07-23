@@ -1,14 +1,15 @@
 #!/bin/bash
 
 conf="${HOME}/.config/bookmark.conf"
+
 addflag=false
+delflag=false
 
 function print_help {
     echo "usage: cdb [-c] bookmark_name"
 }
 
 function add {
-    echo eval name="\$$1"
     eval name="\$$1"
     if [[ ! -z "$name" ]]; then
         echo "That bookmark already exists. I don't handle that yet"
@@ -19,12 +20,24 @@ function add {
     fi
 }
 
+function del {
+    eval name="\$$1"
+    if [[ ! -z "$name" ]]; then        
+        contents=$(grep -v "^$1=" < $conf)       
+        echo $contents > $conf
+        unset $1
+        return
+    else
+        echo "Can't delete a bookmark that doesn't exist."
+    fi    
+}
+
 function lookup {
     eval name="\$$1"
     if [[ ! -z "$name" ]]; then
         cd "$name"
     else
-        echo "That bookmark doesn't exist"
+        echo "That bookmark doesn't exist."
         return
     fi
 }
@@ -35,12 +48,22 @@ if [[ $# -lt 1 || $# -gt 2 ]]; then
     return
 fi
 
+# check whether config file exists yet
+if [[ ! -f $conf ]]; then
+    touch $conf
+else
+    source $conf
+fi
+
 # parse flags
 OPTIND=1
-while getopts ":c" opt; do
+while getopts ":cd" opt; do
     case $opt in
         c)
             addflag=true
+            ;;
+        d)
+            delflag=true
             ;;
         \?)
             print_help
@@ -49,16 +72,11 @@ while getopts ":c" opt; do
     esac
 done
 
-# check whether config file exists yet
-if [[ ! -f $conf ]]; then
-    touch $conf
-else
-    source $conf
-fi
-
 # dispatch based on addflag
 if $addflag ; then
     add $2
+elif $delflag ; then
+    del $2
 else
     lookup $1
 fi
